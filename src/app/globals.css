@@ -1,0 +1,265 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --radius: 1rem;
+
+    --background: oklch(0.982 0.011 88);
+    --foreground: oklch(0.32 0.031 40);
+    --card: oklch(0.995 0.006 90);
+    --card-foreground: oklch(0.32 0.031 40);
+    --popover: oklch(0.995 0.006 90);
+    --popover-foreground: oklch(0.32 0.031 40);
+
+    --primary: oklch(0.53 0.072 20);
+    --primary-foreground: oklch(0.985 0.008 90);
+    --secondary: oklch(0.945 0.023 45);
+    --secondary-foreground: oklch(0.36 0.04 30);
+    --muted: oklch(0.955 0.014 80);
+    --muted-foreground: oklch(0.53 0.024 45);
+    --accent: oklch(0.93 0.032 20);
+    --accent-foreground: oklch(0.36 0.05 20);
+    --destructive: oklch(0.55 0.16 25);
+    --destructive-foreground: oklch(0.985 0.008 90);
+    --border: oklch(0.9 0.018 70);
+    --input: oklch(0.9 0.018 70);
+    --ring: oklch(0.72 0.055 20);
+
+    --blush: oklch(0.7873 0.124 156.53);
+    --rose: oklch(0.68 0.078 15);
+    --lavender: oklch(0.87 0.045 300);
+    --sage: oklch(0.79 0.043 145);
+    --peach: oklch(0.9 0.052 55);
+    --champagne: oklch(0.83 0.06 85);
+    --ink: oklch(0.28 0.03 40);
+    --cream: oklch(0.972 0.016 85);
+
+    --shadow-soft: 0 10px 30px -15px rgba(50, 30, 20, 0.08);
+    --shadow-lift: 0 20px 40px -20px rgba(50, 30, 20, 0.12);
+    --gradient-warm: linear-gradient(
+      150deg,
+      color-mix(in oklab, var(--peach) 55%, transparent),
+      color-mix(in oklab, var(--blush) 60%, transparent) 45%,
+      color-mix(in oklab, var(--lavender) 45%, transparent)
+    );
+  }
+
+  * {
+    border-color: var(--border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
+
+  /*
+   * GPU-accelerated static body background without background-attachment: fixed.
+   * Eliminates 100% of browser scroll repaint jank.
+   */
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  /* Fixed ambient background layer that stays on GPU compositor thread */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    pointer-events: none;
+    background-image:
+      radial-gradient(
+        circle at 12% 8%,
+        color-mix(in oklab, var(--blush) 35%, transparent),
+        transparent 42%
+      ),
+      radial-gradient(
+        circle at 88% 22%,
+        color-mix(in oklab, var(--lavender) 28%, transparent),
+        transparent 40%
+      ),
+      radial-gradient(
+        circle at 70% 92%,
+        color-mix(in oklab, var(--sage) 22%, transparent),
+        transparent 45%
+      );
+    transform: translate3d(0, 0, 0);
+    will-change: transform;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display), "Cormorant Garamond", Georgia, serif;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--rose);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+}
+
+.font-display {
+  font-family: var(--font-display), "Cormorant Garamond", Georgia, serif;
+}
+
+.font-hand {
+  font-family: var(--font-hand), "Caveat", cursive;
+}
+
+.paper {
+  background-color: var(--card);
+  box-shadow: var(--shadow-soft);
+  position: relative;
+  contain: paint;
+}
+
+.grain {
+  position: relative;
+}
+
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.18;
+  background-image: radial-gradient(rgba(0, 0, 0, 0.08) 1px, transparent 0);
+  background-size: 8px 8px;
+}
+
+.warm-gradient {
+  background-image: var(--gradient-warm);
+}
+
+.lift {
+  box-shadow: var(--shadow-lift);
+}
+
+.hairline {
+  border: 1px solid color-mix(in oklab, var(--border) 80%, transparent);
+}
+
+.eyebrow {
+  font-size: 0.72rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+
+/* GPU CSS floating keyframes for FloatingGarden */
+@keyframes float-slow {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+
+  50% {
+    transform: translateY(-12px) rotate(3deg);
+  }
+}
+
+@keyframes float-delayed {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+
+  50% {
+    transform: translateY(-10px) rotate(-3deg);
+  }
+}
+
+@keyframes float-alt {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+
+  50% {
+    transform: translateY(10px) rotate(3deg);
+  }
+}
+
+.animate-float-slow {
+  animation: float-slow 4s ease-in-out infinite;
+}
+
+.animate-float-delayed {
+  animation: float-delayed 3.5s ease-in-out infinite;
+}
+
+.animate-float-alt {
+  animation: float-alt 3s ease-in-out infinite;
+}
+
+@keyframes glow-pulse {
+  0%,
+  100% {
+    box-shadow:
+      0 0 0 rgba(212, 175, 55, 0),
+      0 0 8px rgba(212, 175, 55, 0.12);
+  }
+
+  50% {
+    box-shadow:
+      0 0 12px rgba(212, 175, 55, 0.22),
+      0 0 28px rgba(212, 175, 55, 0.12);
+  }
+}
+
+.animate-glow-pulse {
+  animation: glow-pulse 2.5s ease-in-out infinite;
+}
+
+@keyframes sparkle-glow {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 2px rgba(212, 175, 55, 0.3));
+  }
+
+  50% {
+    filter: drop-shadow(0 0 7px rgba(212, 175, 55, 0.8));
+  }
+}
+
+.animate-sparkle-glow {
+  animation: sparkle-glow 1.8s ease-in-out infinite;
+}
+
+@keyframes fluent-pulse {
+  0%, 100% {
+    background-color: hsl(var(--background));
+    transform: scale(0.6);
+  }
+  50% {
+    background-color: #000000;
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

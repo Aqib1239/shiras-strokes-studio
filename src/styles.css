@@ -1,0 +1,217 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Shira's Strokes — handmade artisan design system.
+ * All colors are oklch semantic tokens. Never hardcode colors in components.
+ */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+
+  --font-display: "Cormorant Garamond", Georgia, serif;
+  --font-sans: "Karla", ui-sans-serif, system-ui, sans-serif;
+  --font-hand: "Caveat", cursive;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+
+  --color-blush: var(--blush);
+  --color-rose: var(--rose);
+  --color-lavender: var(--lavender);
+  --color-sage: var(--sage);
+  --color-peach: var(--peach);
+  --color-champagne: var(--champagne);
+  --color-ink: var(--ink);
+  --color-cream: var(--cream);
+}
+
+:root {
+  --radius: 1rem;
+
+  --background: oklch(0.982 0.011 88);
+  --foreground: oklch(0.32 0.031 40);
+  --card: oklch(0.995 0.006 90);
+  --card-foreground: oklch(0.32 0.031 40);
+  --popover: oklch(0.995 0.006 90);
+  --popover-foreground: oklch(0.32 0.031 40);
+
+  --primary: oklch(0.53 0.072 20);
+  --primary-foreground: oklch(0.985 0.008 90);
+  --secondary: oklch(0.945 0.023 45);
+  --secondary-foreground: oklch(0.36 0.04 30);
+  --muted: oklch(0.955 0.014 80);
+  --muted-foreground: oklch(0.53 0.024 45);
+  --accent: oklch(0.93 0.032 20);
+  --accent-foreground: oklch(0.36 0.05 20);
+  --destructive: oklch(0.55 0.16 25);
+  --destructive-foreground: oklch(0.985 0.008 90);
+  --border: oklch(0.9 0.018 70);
+  --input: oklch(0.9 0.018 70);
+  --ring: oklch(0.72 0.055 20);
+
+  --blush: oklch(0.925 0.038 15);
+  --rose: oklch(0.68 0.078 15);
+  --lavender: oklch(0.87 0.045 300);
+  --sage: oklch(0.79 0.043 145);
+  --peach: oklch(0.9 0.052 55);
+  --champagne: oklch(0.83 0.06 85);
+  --ink: oklch(0.28 0.03 40);
+  --cream: oklch(0.972 0.016 85);
+
+  --shadow-soft: 0 18px 40px -24px color-mix(in oklab, var(--ink) 32%, transparent);
+  --shadow-lift: 0 28px 60px -30px color-mix(in oklab, var(--ink) 40%, transparent);
+  --gradient-warm: linear-gradient(
+    150deg,
+    color-mix(in oklab, var(--peach) 55%, transparent),
+    color-mix(in oklab, var(--blush) 60%, transparent) 45%,
+    color-mix(in oklab, var(--lavender) 45%, transparent)
+  );
+  --gradient-cream: linear-gradient(
+    180deg,
+    var(--background),
+    color-mix(in oklab, var(--cream) 80%, var(--background))
+  );
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    overflow-x: hidden;
+    background-image:
+      radial-gradient(
+        circle at 12% 8%,
+        color-mix(in oklab, var(--blush) 40%, transparent),
+        transparent 42%
+      ),
+      radial-gradient(
+        circle at 88% 22%,
+        color-mix(in oklab, var(--lavender) 32%, transparent),
+        transparent 40%
+      ),
+      radial-gradient(
+        circle at 70% 92%,
+        color-mix(in oklab, var(--sage) 26%, transparent),
+        transparent 45%
+      );
+    background-attachment: fixed;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    color: var(--color-ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-rose);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+}
+
+@utility font-hand {
+  font-family: var(--font-hand);
+}
+
+@utility paper {
+  background-color: var(--color-card);
+  box-shadow: var(--shadow-soft);
+  position: relative;
+  isolation: isolate;
+}
+
+@utility grain {
+  position: relative;
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.4;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.16'/%3E%3C/svg%3E");
+  }
+}
+
+@utility organic-blob {
+  border-radius: 62% 38% 46% 54% / 48% 42% 58% 52%;
+}
+
+@utility soft-edge {
+  border-radius: 1.75rem 1.75rem 1.75rem 1.75rem;
+}
+
+@utility warm-gradient {
+  background-image: var(--gradient-warm);
+}
+
+@utility lift {
+  box-shadow: var(--shadow-lift);
+}
+
+@utility hairline {
+  border: 1px solid color-mix(in oklab, var(--border) 80%, transparent);
+}
+
+@utility eyebrow {
+  font-size: 0.72rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--color-muted-foreground);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
