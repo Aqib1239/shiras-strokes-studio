@@ -12,11 +12,14 @@ import productRoutes from "./routes/productRoutes.js";
 import reviewRoutes from "./routes/reviewRoutes.js";
 import uploadRoutes from "./routes/uploadRoutes.js";
 import statsRoutes from "./routes/statsRoutes.js";
+import cloudinaryRoutes from "./routes/cloudinaryRoutes.js";
 
 import {
   notFound,
   errorHandler,
 } from "./middleware/errorMiddleware.js";
+
+const PORT = process.env.PORT || 5000;
 
 // --------------------------------------------------
 // Environment
@@ -205,6 +208,8 @@ app.use(
   statsRoutes
 );
 
+app.use("/api/cloudinary", cloudinaryRoutes);
+
 // --------------------------------------------------
 // Error Handling
 // --------------------------------------------------
@@ -212,6 +217,11 @@ app.use(
 app.use(notFound);
 
 app.use(errorHandler);
+
+
+app.listen(process.env.PORT, () => {
+  console.log(`Backend server running on port ${PORT}`);
+});
 
 // --------------------------------------------------
 // Export Express App

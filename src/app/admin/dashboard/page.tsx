@@ -23,6 +23,41 @@ import { toast } from "sonner";
 export default function AdminDashboardPage() {
   const [stats, setStats] = useState<DashboardStats | null>(null);
   const [loading, setLoading] = useState(true);
+  const [cloudinaryUsage, setCloudinaryUsage] = useState<{
+    storage: {
+      usedBytes: number;
+      usedGB: number;
+    };
+    credits: {
+      used: number;
+      limit: number;
+      percentage: number;
+      remaining: number;
+    };
+    resources: number;
+    plan: string | null;
+    lastUpdated: string | null;
+  } | null>(null);
+
+  const fetchCloudinaryUsage = async () => {
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/cloudinary/usage`
+      );
+  
+      const data = await response.json();
+  
+      if (!response.ok || !data.success) {
+        throw new Error(data.message || "Failed to fetch Cloudinary usage");
+      }
+  
+      console.log("Cloudinary usage:", data);
+  
+      setCloudinaryUsage(data);
+    } catch (error) {
+      console.error("Failed to fetch Cloudinary usage:", error);
+    }
+  };
 
   const fetchStats = async () => {
     try {
@@ -39,6 +74,7 @@ export default function AdminDashboardPage() {
 
   useEffect(() => {
     fetchStats();
+    fetchCloudinaryUsage();
   }, []);
 
   return (
@@ -249,19 +285,71 @@ export default function AdminDashboardPage() {
                 </div>
               </div>
 
-              <div className="rounded-2xl bg-secondary/50 p-3.5 flex items-center gap-3">
-                <Cloud className="h-5 w-5 text-primary" />
-                <div>
-                  <p className="font-medium text-ink">Image Storage</p>
-                  <p
-                    className={
-                      stats?.system.cloudinaryConfigured ? "text-emerald-700" : "text-amber-700"
-                    }
-                  >
-                    {stats?.system.cloudinaryConfigured
-                      ? "● Cloudinary Active"
-                      : "● Local Uploads Fallback Active"}
-                  </p>
+              <div className="rounded-2xl bg-secondary/50 p-3.5 flex items-start gap-3">
+                <Cloud className="h-5 w-5 text-primary mt-0.5 shrink-0" />
+
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-center justify-between gap-2">
+                    <p className="font-medium text-ink">Image Storage</p>
+
+                    <span
+                      className={
+                        stats?.system.cloudinaryConfigured ? "text-emerald-700" : "text-amber-700"
+                      }
+                    >
+                      {stats?.system.cloudinaryConfigured ? "● Active" : "● Fallback"}
+                    </span>
+                  </div>
+
+                  {stats?.system.cloudinaryConfigured ? (
+                    cloudinaryUsage ? (
+                      <div className="mt-2">
+                        {/* Storage */}
+                        <div className="flex items-center justify-between text-[0.7rem]">
+                          <span className="text-muted-foreground">
+                            {cloudinaryUsage.storage.usedGB.toFixed(2)} GB used
+                          </span>
+
+                          <span className="font-medium text-ink">
+                            {cloudinaryUsage.resources} resources
+                          </span>
+                        </div>
+
+                        {/* Credits progress */}
+                        <div className="mt-2 flex items-center justify-between text-[0.7rem]">
+                          <span className="text-muted-foreground">
+                            {cloudinaryUsage.credits.used.toFixed(2)} credits used
+                          </span>
+
+                          <span className="font-medium text-ink">
+                            {cloudinaryUsage.credits.percentage.toFixed(0)}%
+                          </span>
+                        </div>
+
+                        <div className="mt-1.5 h-1.5 w-full overflow-hidden rounded-full bg-border">
+                          <div
+                            className="h-full rounded-full bg-primary transition-all duration-500"
+                            style={{
+                              width: `${Math.min(cloudinaryUsage.credits.percentage, 100)}%`,
+                            }}
+                          />
+                        </div>
+
+                        {/* Credit details */}
+                        <div className="mt-1.5 flex justify-between text-[0.65rem] text-muted-foreground">
+                          <span>
+                            {cloudinaryUsage.credits.remaining.toFixed(2)} credits remaining
+                          </span>
+
+                          <span>{cloudinaryUsage.credits.limit.toFixed(2)} credits total</span>
+                        </div>
+                      </div>
+                    ) : (
+                      <p className="mt-1 text-muted-foreground">Loading storage...</p>
+                    )
+                  ) : (
+                    <p className="text-amber-700">Local Uploads Fallback Active</p>
+                  )}
                 </div>
               </div>
 
