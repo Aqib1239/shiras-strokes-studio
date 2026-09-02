@@ -2,7 +2,7 @@ export const getWhatsAppNumber = (): string => {
   if (typeof process !== "undefined" && process.env.NEXT_PUBLIC_WHATSAPP_NUMBER) {
     return process.env.NEXT_PUBLIC_WHATSAPP_NUMBER.replace(/\D/g, "");
   }
-  return "919000000000";
+  return "916306964389";
 };
 
 export const getWhatsAppEnquiryUrl = (productName: string, price?: number): string => {
