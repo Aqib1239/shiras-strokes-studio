@@ -1,7 +1,5 @@
 const API_BASE_URL =
-  typeof window !== "undefined"
-    ? "" // Relative path so Next.js rewrites proxy to backend
-    : process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+  process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
 
 // Helper to get auth header
 const getAuthHeaders = () => {
