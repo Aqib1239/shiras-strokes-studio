@@ -128,14 +128,6 @@ export default function AdminLoginPage() {
                 </button>
               </div>
             </form>
-
-            <div className="mt-6 rounded-2xl bg-secondary/40 p-3 text-center text-[0.7rem] text-muted-foreground">
-              <span className="font-semibold text-ink">Default Demo Login:</span>
-              <br />
-              email: <code className="text-primary">admin@shirasstrokes.com</code>
-              <br />
-              password: <code className="text-primary">Admin@Shira2025!</code>
-            </div>
           </Reveal>
         </div>
       </div>

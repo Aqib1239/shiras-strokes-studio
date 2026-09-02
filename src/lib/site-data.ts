@@ -354,7 +354,7 @@ export const faqs = [
   },
 ];
 
-export const WHATSAPP_URL = "https://wa.me/6306964389";
+export const WHATSAPP_URL = "https://wa.me/916306964389";
 export const INSTAGRAM_URL = "https://instagram.com/shirasstrokes";
 export const FACEBOOK_URL = "https://facebook.com/shirasstrokes";
 export const EMAIL = "kashfiqureshi@gmail.com";
