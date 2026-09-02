@@ -276,115 +276,208 @@ function AdminProductsContent() {
           </div>
         </div>
 
-        {/* Product Table / Cards */}
-        {loading ? (
+               {/* Product Table / Cards */}
+               {loading ? (
           <div className="space-y-3 animate-pulse">
             {[1, 2, 3, 4, 5].map((i) => (
               <div key={i} className="h-20 rounded-2xl bg-secondary/50" />
             ))}
           </div>
         ) : filteredProducts.length > 0 ? (
-          <div className="rounded-3xl hairline bg-card paper overflow-hidden">
-            <div className="overflow-x-auto">
-              <table className="w-full text-left text-xs">
-                <thead className="bg-secondary/60 text-muted-foreground uppercase text-[0.65rem] tracking-wider border-b border-border/70">
-                  <tr>
-                    <th className="px-6 py-4">Product</th>
-                    <th className="px-4 py-4">Category</th>
-                    <th className="px-4 py-4">Price</th>
-                    <th className="px-4 py-4 text-center">Status</th>
-                    <th className="px-4 py-4 text-center">Featured</th>
-                    <th className="px-6 py-4 text-right">Actions</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-border/60">
-                  {filteredProducts.map((p) => {
-                    const pid = p._id || p.id || "";
-                    return (
-                      <tr key={pid} className="hover:bg-secondary/30 transition-colors">
-                        <td className="px-6 py-4">
-                          <div className="flex items-center gap-3">
-                            <img
-                              src={p.image || (p.images && p.images[0]) || "/assets/cat-crafts.jpg"}
-                              alt={p.name}
-                              className="h-12 w-12 rounded-xl object-cover shrink-0 bg-secondary/30"
-                            />
-                            <div className="min-w-0">
-                              <p className="font-medium text-sm text-ink truncate max-w-xs">
-                                {p.name}
-                              </p>
-                              <p className="text-[0.7rem] text-muted-foreground line-clamp-1">
-                                {p.description}
-                              </p>
-                            </div>
-                          </div>
-                        </td>
-                        <td className="px-4 py-4">
-                          <span className="capitalize px-2.5 py-1 rounded-full bg-secondary text-ink text-[0.7rem]">
-                            {p.category}
-                          </span>
-                        </td>
-                        <td className="px-4 py-4 font-display font-semibold text-sm text-ink">
-                          {formatPrice(p.price)}
-                        </td>
-                        <td className="px-4 py-4 text-center">
-                          <button
-                            type="button"
-                            onClick={() => handleToggleStatus(p, "isActive")}
-                            className={`px-3 py-1 rounded-full text-[0.65rem] font-medium transition-all ${
-                              p.isActive
-                                ? "bg-emerald-100 text-emerald-800 hover:bg-emerald-200"
-                                : "bg-gray-100 text-gray-600 hover:bg-gray-200"
-                            }`}
-                          >
-                            {p.isActive ? "Active" : "Disabled"}
-                          </button>
-                        </td>
-                        <td className="px-4 py-4 text-center">
-                          <button
-                            type="button"
-                            onClick={() => handleToggleStatus(p, "featured")}
-                            className={`p-1.5 rounded-full transition-all ${
-                              p.featured
-                                ? "bg-champagne/30 text-amber-800"
-                                : "text-border hover:text-muted-foreground"
-                            }`}
-                            title={p.featured ? "Featured on Home" : "Not featured"}
-                          >
-                            <Sparkles
-                              className={`h-4 w-4 ${
-                                p.featured ? "fill-champagne text-champagne" : ""
-                              }`}
-                            />
-                          </button>
-                        </td>
-                        <td className="px-6 py-4 text-right">
-                          <div className="flex items-center justify-end gap-2">
-                            <button
-                              type="button"
-                              onClick={() => openEditModal(p)}
-                              className="p-2 rounded-xl hover:bg-secondary text-ink transition-colors"
-                              title="Edit product"
-                            >
-                              <Edit2 className="h-4 w-4" />
-                            </button>
-                            <button
-                              type="button"
-                              onClick={() => setDeletingId(pid)}
-                              className="p-2 rounded-xl hover:bg-destructive/10 text-destructive transition-colors"
-                              title="Delete product"
-                            >
-                              <Trash2 className="h-4 w-4" />
-                            </button>
-                          </div>
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
+          <>
+            {/* MOBILE: Card layout (below md) */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:hidden">
+              {filteredProducts.map((p) => {
+                const pid = p._id || p.id || "";
+                return (
+                  <div
+                    key={pid}
+                    className="rounded-3xl hairline bg-card paper p-4 flex flex-col gap-3"
+                  >
+                    {/* Image + Name/Description */}
+                    <div className="flex items-center gap-3">
+                      <img
+                        src={p.image || (p.images && p.images[0]) || "/assets/cat-crafts.jpg"}
+                        alt={p.name}
+                        className="h-14 w-14 rounded-xl object-cover shrink-0 bg-secondary/30"
+                      />
+                      <div className="min-w-0">
+                        <p className="font-medium text-sm text-ink truncate">{p.name}</p>
+                        <p className="text-[0.7rem] text-muted-foreground line-clamp-1">
+                          {p.description}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Category + Price */}
+                    <div className="flex items-center justify-between">
+                      <span className="capitalize px-2.5 py-1 rounded-full bg-secondary text-ink text-[0.7rem]">
+                        {p.category}
+                      </span>
+                      <span className="font-display font-semibold text-sm text-ink">
+                        {formatPrice(p.price)}
+                      </span>
+                    </div>
+
+                    {/* Status + Featured */}
+                    <div className="flex items-center justify-between">
+                      <button
+                        type="button"
+                        onClick={() => handleToggleStatus(p, "isActive")}
+                        className={`px-3 py-1 rounded-full text-[0.65rem] font-medium transition-all ${
+                          p.isActive
+                            ? "bg-emerald-100 text-emerald-800 hover:bg-emerald-200"
+                            : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                        }`}
+                      >
+                        {p.isActive ? "Active" : "Disabled"}
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() => handleToggleStatus(p, "featured")}
+                        className={`p-1.5 rounded-full transition-all ${
+                          p.featured
+                            ? "bg-champagne/30 text-amber-800"
+                            : "text-border hover:text-muted-foreground"
+                        }`}
+                        title={p.featured ? "Featured on Home" : "Not featured"}
+                      >
+                        <Sparkles
+                          className={`h-4 w-4 ${
+                            p.featured ? "fill-champagne text-champagne" : ""
+                          }`}
+                        />
+                      </button>
+                    </div>
+
+                    {/* Actions */}
+                    <div className="flex items-center justify-end gap-2 pt-1 border-t border-border/60">
+                      <button
+                        type="button"
+                        onClick={() => openEditModal(p)}
+                        className="p-2 rounded-xl hover:bg-secondary text-ink transition-colors"
+                        title="Edit product"
+                      >
+                        <Edit2 className="h-4 w-4" />
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setDeletingId(pid)}
+                        className="p-2 rounded-xl hover:bg-destructive/10 text-destructive transition-colors"
+                        title="Delete product"
+                      >
+                        <Trash2 className="h-4 w-4" />
+                      </button>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
-          </div>
+
+            {/* DESKTOP: Table layout (md and up) */}
+            <div className="hidden md:block rounded-3xl hairline bg-card paper overflow-hidden">
+              <div className="overflow-x-auto">
+                <table className="w-full text-left text-xs">
+                  <thead className="bg-secondary/60 text-muted-foreground uppercase text-[0.65rem] tracking-wider border-b border-border/70">
+                    <tr>
+                      <th className="px-6 py-4">Product</th>
+                      <th className="px-4 py-4">Category</th>
+                      <th className="px-4 py-4">Price</th>
+                      <th className="px-4 py-4 text-center">Status</th>
+                      <th className="px-4 py-4 text-center">Featured</th>
+                      <th className="px-6 py-4 text-right">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-border/60">
+                    {filteredProducts.map((p) => {
+                      const pid = p._id || p.id || "";
+                      return (
+                        <tr key={pid} className="hover:bg-secondary/30 transition-colors">
+                          <td className="px-6 py-4">
+                            <div className="flex items-center gap-3">
+                              <img
+                                src={p.image || (p.images && p.images[0]) || "/assets/cat-crafts.jpg"}
+                                alt={p.name}
+                                className="h-12 w-12 rounded-xl object-cover shrink-0 bg-secondary/30"
+                              />
+                              <div className="min-w-0">
+                                <p className="font-medium text-sm text-ink truncate max-w-xs">
+                                  {p.name}
+                                </p>
+                                <p className="text-[0.7rem] text-muted-foreground line-clamp-1">
+                                  {p.description}
+                                </p>
+                              </div>
+                            </div>
+                          </td>
+                          <td className="px-4 py-4">
+                            <span className="capitalize px-2.5 py-1 rounded-full bg-secondary text-ink text-[0.7rem]">
+                              {p.category}
+                            </span>
+                          </td>
+                          <td className="px-4 py-4 font-display font-semibold text-sm text-ink">
+                            {formatPrice(p.price)}
+                          </td>
+                          <td className="px-4 py-4 text-center">
+                            <button
+                              type="button"
+                              onClick={() => handleToggleStatus(p, "isActive")}
+                              className={`px-3 py-1 rounded-full text-[0.65rem] font-medium transition-all ${
+                                p.isActive
+                                  ? "bg-emerald-100 text-emerald-800 hover:bg-emerald-200"
+                                  : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                              }`}
+                            >
+                              {p.isActive ? "Active" : "Disabled"}
+                            </button>
+                          </td>
+                          <td className="px-4 py-4 text-center">
+                            <button
+                              type="button"
+                              onClick={() => handleToggleStatus(p, "featured")}
+                              className={`p-1.5 rounded-full transition-all ${
+                                p.featured
+                                  ? "bg-champagne/30 text-amber-800"
+                                  : "text-border hover:text-muted-foreground"
+                              }`}
+                              title={p.featured ? "Featured on Home" : "Not featured"}
+                            >
+                              <Sparkles
+                                className={`h-4 w-4 ${
+                                  p.featured ? "fill-champagne text-champagne" : ""
+                                }`}
+                              />
+                            </button>
+                          </td>
+                          <td className="px-6 py-4 text-right">
+                            <div className="flex items-center justify-end gap-2">
+                              <button
+                                type="button"
+                                onClick={() => openEditModal(p)}
+                                className="p-2 rounded-xl hover:bg-secondary text-ink transition-colors"
+                                title="Edit product"
+                              >
+                                <Edit2 className="h-4 w-4" />
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => setDeletingId(pid)}
+                                className="p-2 rounded-xl hover:bg-destructive/10 text-destructive transition-colors"
+                                title="Delete product"
+                              >
+                                <Trash2 className="h-4 w-4" />
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </>
         ) : (
           <div className="rounded-3xl hairline bg-card p-12 text-center paper">
             <Package className="h-10 w-10 text-muted-foreground/40 mx-auto mb-3" />
@@ -403,7 +496,6 @@ function AdminProductsContent() {
             </button>
           </div>
         )}
-      </div>
 
       {/* ADD / EDIT PRODUCT MODAL */}
       {isModalOpen && (
@@ -458,7 +550,25 @@ export default function AdminProductsPage() {
         <div className="flex min-h-screen items-center justify-center bg-background">
           <div className="text-center">
             <div className="h-8 w-8 animate-spin rounded-full border-2 border-primary border-t-transparent mx-auto mb-3" />
-            <p className="font-display text-lg text-ink">Loading Products...</p>
+            {/* Fluent-style dot ring spinner */}
+            <div className="relative h-14 w-14">
+              {Array.from({ length: 8 }).map((_, i) => (
+                <span
+                  key={i}
+                  className="absolute left-1/2 top-1/2 -ml-[5px] -mt-[5px] h-[10px] w-[10px] rounded-full"
+                  style={{
+                    transform: `rotate(${i * 45}deg) translateY(-22px)`,
+                  }}
+                >
+                  <span
+                    className="block h-full w-full rounded-full bg-primary animate-[fluent-pulse_1.2s_ease-in-out_infinite]"
+                    style={{
+                      animationDelay: `${i * 0.15}s`,
+                    }}
+                  />
+                </span>
+              ))}
+            </div>
           </div>
         </div>
       }
