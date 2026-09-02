@@ -277,7 +277,7 @@ function AdminProductsContent() {
         </div>
 
                {/* Product Table / Cards */}
-               {loading ? (
+        {loading ? (
           <div className="space-y-3 animate-pulse">
             {[1, 2, 3, 4, 5].map((i) => (
               <div key={i} className="h-20 rounded-2xl bg-secondary/50" />
@@ -496,6 +496,7 @@ function AdminProductsContent() {
             </button>
           </div>
         )}
+      </div>
 
       {/* ADD / EDIT PRODUCT MODAL */}
       {isModalOpen && (
