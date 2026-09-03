@@ -46,7 +46,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Shira's Strokes | Handmade With Love",
     description: "Handmade and customised creations, crafted with love since 2025.",
-    url: "https://shirasstrokes.com",
+    url: "https://shiras-strokes-studio.vercel.app",
     siteName: "Shira's Strokes",
     type: "website",
   },
@@ -56,7 +56,7 @@ export const metadata: Metadata = {
     description: "Handmade and customised creations, crafted with love since 2025.",
   },
   icons: {
-    icon: "/favicon.ico",
+    icon: "/icon.png",
   },
 };
 

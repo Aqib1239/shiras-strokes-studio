@@ -1,1348 +1,371 @@
-# Shira's Artisan Studio
+# Shira's Strokes
+
+> **Handmade with Love**
+
+A modern, elegant, and responsive website for **Shira's Strokes**, a handmade creative brand established in 2025. The platform showcases handmade and customised creations while providing an admin dashboard for managing products, images, and customer reviews.
+
+## ✨ Features
+
+### Customer Experience
+
+- Responsive multi-page website
+- Home, Products, Our Story, Reviews, and Contact sections
+- Product browsing and category filtering
+- Product details and enquiry experience
+- Custom order enquiries
+- Customer review display
+- WhatsApp/contact integration
+- Smooth page transitions and UI animations
+- Mobile-first responsive experience
+- Accessible navigation and UI components
+
+### Admin Dashboard
+
+- Secure admin authentication
+- Dashboard overview and statistics
+- Product management
+- Add, edit, and delete products
+- Product image uploads
+- Cloudinary image storage integration
+- Local upload fallback when Cloudinary is unavailable
+- Customer review management
+- System integration and service status information
+- Cloudinary storage and usage monitoring
+
+## 🛠️ Tech Stack
+
+### Frontend
+
+- **Next.js 15** — React framework and application routing
+- **React 19**
+- **TypeScript**
+- **Tailwind CSS**
+- **Framer Motion** — animations and transitions
+- **Lucide React** — icons
+- **React Hook Form** — form management
+- **Zod** — validation
+- **Sonner** — toast notifications
+
+### Backend
+
+- **Node.js**
+- **Express.js**
+- **MongoDB**
+- **Mongoose**
+- **JWT** — authentication
+- **bcryptjs** — password hashing
+- **Multer** — file uploads
+- **Cloudinary** — cloud image storage
+- **dotenv** — environment configuration
+- **CORS**
+
+## 📁 Project Structure
+
+```text
+shiras-strokes/
+├── app/                    # Next.js application routes and pages
+├── components/             # Reusable React components
+├── lib/                    # Frontend utilities and application logic
+├── public/                 # Static assets
+├── backend/
+│   ├── config/             # Database and Cloudinary configuration
+│   ├── controllers/        # API controllers
+│   ├── middleware/         # Backend middleware
+│   ├── models/             # Mongoose models
+│   ├── routes/             # Express API routes
+│   ├── utils/              # Backend utilities and seed data
+│   └── server.js           # Express server entry point
+├── .env                    # Local environment variables
+├── next.config.*           # Next.js configuration
+├── package.json
+└── README.md
+```
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+Make sure you have the following installed:
+
+- Node.js
+- npm
+- MongoDB
+- A Cloudinary account for cloud image storage
+
+### Installation
+
+Clone the repository:
+
+```bash
+git clone https://github.com/Aqib1239/shiras-strokes-studio
+cd shiras-strokes-studio
+```
 
-Create a beautiful, creative, elegant, premium, and warm multi-page website for a handmade creative brand called:
+Install dependencies:
 
+```bash
+npm install
+```
 
+### Environment Variables
 
-SHIRA’S STROKES
-
-“Handmade with Love”
-
-
-
-The brand began its journey in 2025.
-
-
-
-The website should feel artistic, handmade, emotional, premium, welcoming, and suitable for ALL age groups — children, teenagers, young adults, parents, and older customers.
-
-
-
-The core feeling should be:
-
-
-
-“Every creation has a story, and every story deserves something handmade.”
-
-
-
-==================================================
-
-BRAND INFORMATION
-
-==================================================
-
-
-
-Brand Name:
-
-Shira’s Strokes
-
-
-
-Tagline:
-
-Handmade with Love
-
-
-
-Established:
-
-2025
-
-
-
-Brand description:
-
-
-
-“Shira’s Strokes is a creative handmade brand where art, craft, and creativity come together. Since 2025, we have been creating beautiful handmade and customised products with love, creativity, and attention to detail.”
-
-
-
-Products include:
-
-
-
-🧶 Crochet Creations
-
-🎨 Handmade Paintings & Artworks
-
-🌸 Handmade Flowers & Bouquets
-
-💎 Handmade Earrings & Accessories
-
-🌷 Handmade Rakhis & Rakhi Gifts
-
-🦋 Pipe Cleaner Flowers & Crafts
-
-🎁 Customised Gifts & Decorative Items
-
-🖌️ Creative Art & Craft Products
-
-
-
-Brand philosophy:
-
-
-
-“Turning creativity into handmade happiness.”
-
-
-
-==================================================
-
-TECH STACK
-
-==================================================
-
-
-
-Use:
-
-
-
-- React
-
-- JavaScript 
-
-- Tailwind CSS
-
-- Framer Motion
-
-- Lucide React
-
-- Modern responsive UI
-
-- Component-based architecture
-
-
-
-Build production-quality code with reusable components.
-
-
-
-==================================================
-
-WEBSITE STRUCTURE
-
-==================================================
-
-
-
-Create these pages:
-
-
-
-1. Home
-
-2. Shop / Products
-
-3. Our Story
-
-4. Reviews / Feedback
-
-5. Contact
-
-
-
-Navigation:
-
-
-
-Home
-
-Shop
-
-Our Story
-
-Reviews
-
-Contact
-
-
-
-Primary navbar CTA:
-
-
-
-“Custom Order”
-
-
-
-Use React Router or the appropriate routing system.
-
-
-
-Each page should have smooth page transitions using Framer Motion.
-
-
-
-==================================================
-
-GLOBAL VISUAL DESIGN
-
-==================================================
-
-
-
-Create a sophisticated handmade/artisan aesthetic.
-
-
-
-Color palette:
-
-
-
-- Warm Ivory / Cream
-
-- Soft Blush Pink
-
-- Dusty Rose
-
-- Lavender
-
-- Sage Green
-
-- Soft Peach
-
-- Warm Brown
-
-- Subtle Champagne/Gold accents
-
-
-
-Avoid neon or overly saturated colors.
-
-
-
-Typography:
-
-
-
-Headings:
-
-Elegant artistic serif font
-
-
-
-Body:
-
-Clean modern sans-serif
-
-
-
-Optional:
-
-A subtle handwritten-style font for small decorative text only.
-
-
-
-Design style:
-
-
-
-- Editorial
-
-- Artistic
-
-- Handmade
-
-- Premium
-
-- Warm
-
-- Minimal
-
-- Organic
-
-- Elegant
-
-
-
-Use:
-
-
-
-- Soft shadows
-
-- Organic shapes
-
-- Paper-like textures
-
-- Brush strokes
-
-- Floral line illustrations
-
-- Hand-drawn decorative elements
-
-- Subtle grain
-
-- Rounded but sophisticated cards
-
-- Generous whitespace
-
-
-
-DO NOT make it look like a generic e-commerce template.
-
-
-
-==================================================
-
-ANIMATION SYSTEM
-
-==================================================
-
-
-
-Use Framer Motion throughout the website.
-
-
-
-Animations should feel:
-
-
-
-- Smooth
-
-- Elegant
-
-- Natural
-
-- Lightweight
-
-- Premium
-
-
-
-Include:
-
-
-
-- Page transition animations
-
-- Fade-up section reveals
-
-- Staggered cards
-
-- Image scale animations
-
-- Gentle hover effects
-
-- Floating flowers
-
-- Subtle parallax
-
-- Animated buttons
-
-- Smooth mobile menu
-
-- Scroll-triggered animations
-
-
-
-Avoid:
-
-
-
-- Excessive bouncing
-
-- Excessive spinning
-
-- Flashy animations
-
-- Distracting motion
-
-
-
-Respect prefers-reduced-motion.
-
-
-
-==================================================
-
-PAGE 1 — HOME
-
-==================================================
-
-
-
-Create a visually stunning homepage.
-
-
-
-------------------------------
-
-HERO
-
-------------------------------
-
-
-
-Headline:
-
-
-
-“Turning Creativity Into Handmade Happiness.”
-
-
-
-Supporting text:
-
-
-
-“Beautiful handmade and customised creations, crafted with love, creativity, and attention to detail.”
-
-
-
-Small badge:
-
-
-
-“Handcrafted Since 2025 ♡”
-
-
-
-Buttons:
-
-
-
-“Explore Our Shop”
-
-“Create Something Custom”
-
-
-
-Hero visual:
-
-
-
-Create an artistic composition showing:
-
-
-
-- Crochet flowers
-
-- Handmade paintings
-
-- Bouquets
-
-- Earrings
-
-- Rakhis
-
-- Pipe cleaner flowers
-
-- Gift boxes
-
-
-
-Use an artistic collage rather than a generic hero image.
-
-
-
-Add subtle floating:
-
-
-
-🌸 flowers
-
-🧵 threads
-
-✨ sparkles
-
-💕 hearts
-
-🍃 leaves
-
-
-
-------------------------------
-
-INTRODUCTION
-
-------------------------------
-
-
-
-Heading:
-
-
-
-“Where Art Meets Heart”
-
-
-
-Text:
-
-
-
-“Born in 2025, Shira’s Strokes began with a simple idea — to turn creativity into something people can hold, gift, cherish, and remember.”
-
-
-
-CTA:
-
-
-
-“Discover Our Story”
-
-
-
-------------------------------
-
-FEATURED CATEGORIES
-
-------------------------------
-
-
-
-Heading:
-
-
-
-“Made With Love, Created For You”
-
-
-
-Show 8 categories:
-
-
-
-Crochet Creations
-
-Paintings & Artworks
-
-Flowers & Bouquets
-
-Earrings & Accessories
-
-Rakhis & Rakhi Gifts
-
-Pipe Cleaner Crafts
-
-Customised Gifts
-
-Creative Art & Crafts
-
-
-
-Each category should have an artistic image and hover animation.
-
-
-
-CTA:
-
-
-
-“View All Creations”
-
-
-
-------------------------------
-
-FEATURED PRODUCTS
-
-------------------------------
-
-
-
-Heading:
-
-
-
-“Little Creations, Big Feelings.”
-
-
-
-Create an elegant editorial product gallery.
-
-
-
-Products:
-
-
-
-- Crochet Flower Bouquet
-
-- Handmade Floral Earrings
-
-- Custom Name Painting
-
-- Handmade Rakhi
-
-- Pipe Cleaner Flower Bouquet
-
-- Custom Gift Box
-
-
-
-Each product card:
-
-
-
-Image
-
-Product name
-
-Short description
-
-Price placeholder
-
-“View Product” button
-
-“Customisable” badge where appropriate
-
-
-
-------------------------------
-
-CUSTOM ORDER
-
-------------------------------
-
-
-
-Heading:
-
-
-
-“Have an Idea? Let’s Make It Real.”
-
-
-
-Text:
-
-
-
-“Have something special in mind? Tell us your idea, colours, theme or occasion, and we’ll turn it into something uniquely yours.”
-
-
-
-Steps:
-
-
-
-01 — Share Your Idea
-
-02 — We Create With Love
-
-03 — You Receive Something Special
-
-
-
-CTA:
-
-
-
-“Request a Custom Order”
-
-
-
-------------------------------
-
-OCCASIONS
-
-------------------------------
-
-
-
-Heading:
-
-
-
-“Made For Every Beautiful Moment”
-
-
-
-Cards:
-
-
-
-Birthdays
-
-Anniversaries
-
-Raksha Bandhan
-
-Graduations
-
-Festivals
-
-Home Décor
-
-Special Celebrations
-
-Just Because
-
-
-
-------------------------------
-
-REVIEWS PREVIEW
-
-------------------------------
-
-
-
-Heading:
-
-
-
-“Kind Words From Happy Hearts”
-
-
-
-Show 3 testimonials.
-
-
-
-CTA:
-
-
-
-“Read All Reviews”
-
-
-
-------------------------------
-
-FINAL CTA
-
-------------------------------
-
-
-
-“Let’s Create Something Beautiful Together.”
-
-
-
-Buttons:
-
-
-
-“Shop Handmade”
-
-“Get in Touch”
-
-
-
-==================================================
-
-PAGE 2 — SHOP / PRODUCTS
-
-==================================================
-
-
-
-Create a premium handmade shop page.
-
-
-
-Header:
-
-
-
-“Shop Handmade”
-
-
-
-Subtitle:
-
-
-
-“Discover creations made slowly, thoughtfully, and with love.”
-
-
-
-Create category filters:
-
-
-
-All
-
-Crochet
-
-Paintings
-
-Flowers
-
-Accessories
-
-Rakhis
-
-Pipe Cleaner Crafts
-
-Gifts
-
-Custom Creations
-
-
-
-Create a beautiful responsive product grid.
-
-
-
-Each product card should include:
-
-
-
-- Product image
-
-- Product name
-
-- Category
-
-- Price
-
-- Handmade badge
-
-- Customisable badge if applicable
-
-- Wishlist/heart icon
-
-- View Product button
-
-
-
-Add elegant hover animations.
-
-
-
-Use realistic placeholder products and images.
-
-
-
-Include sorting:
-
-
-
-Featured
-
-Newest
-
-Price: Low to High
-
-Price: High to Low
-
-
-
-Product detail experience:
-
-
-
-When clicking a product, show a beautiful product detail page or modal containing:
-
-
-
-- Large product image
-
-- Product name
-
-- Description
-
-- Price
-
-- Materials
-
-- Handmade information
-
-- Customisation availability
-
-- Quantity
-
-- “Add to Cart” / “Enquire Now”
-
-- Related products
-
-
-
-Keep the shopping experience simple and visually elegant.
-
-
-
-==================================================
-
-PAGE 3 — OUR STORY
-
-==================================================
-
-
-
-This page should be emotional and storytelling-focused.
-
-
-
-Hero heading:
-
-
-
-“Every Stroke Has a Story.”
-
-
-
-Subtitle:
-
-
-
-“From a creative idea in 2025 to handmade creations made with love.”
-
-
-
-Create a timeline:
-
-
-
-2025
-
-“Where It Began”
-
-
-
-Explain that Shira’s Strokes started in 2025 from a passion for art, craft and creating meaningful handmade pieces.
-
-
-
-Then:
-
-
-
-“Growing Through Creativity”
-
-
-
-Explain the journey of experimenting with different handmade crafts and discovering new ways to turn ideas into beautiful creations.
-
-
-
-Then:
-
-
-
-“Made For You”
-
-
-
-Explain the focus on customised creations, gifting and creating pieces that feel personal.
-
-
-
-Add a section:
-
-
-
-“Why We Make”
-
-
-
-Text:
-
-
-
-“We believe handmade things carry something that mass-produced products cannot — time, thought, creativity and a little piece of the person who made them.”
-
-
-
-Add artistic images throughout the story.
-
-
-
-Include handwritten-style quotes:
-
-
-
-“Made slowly.”
-
-“Made thoughtfully.”
-
-“Made with love.”
-
-
-
-==================================================
-
-PAGE 4 — REVIEWS / FEEDBACK
-
-==================================================
-
-
-
-Create a beautiful customer feedback page.
-
-
-
-Hero:
-
-
-
-“What Our Customers Say”
-
-
-
-Subtitle:
-
-
-
-“Every kind word inspires us to keep creating.”
-
-
-
-Create elegant review cards.
-
-
-
-Each review:
-
-
-
-★★★★★
-
-Customer name
-
-Optional occasion
-
-Review text
-
-
+Create a `.env` file in the project root and configure the required environment variables.
 
 Example:
 
+```env
+# Frontend
+NEXT_PUBLIC_API_URL=http://localhost:5000
 
+# Backend
+PORT=5000
+MONGODB_URI=your_mongodb_connection_string
 
-“Absolutely loved the handmade bouquet. The details were beautiful and it felt so personal.”
+# Authentication
+JWT_SECRET=your_jwt_secret
 
+# Cloudinary
+CLOUDINARY_CLOUD_NAME=your_cloud_name
+CLOUDINARY_API_KEY=your_api_key
+CLOUDINARY_API_SECRET=your_api_secret
+```
 
+> **Important:** Never commit real credentials, API keys, database credentials, or JWT secrets to Git.
 
-“Such a beautiful gift! You can really see the effort and love behind the work.”
+## 💻 Development
 
+Run both the frontend and backend together:
 
-
-“Everything looked even better in person. Beautifully crafted and thoughtfully packed.”
-
-
-
-Include an overall rating section:
-
-
-
-“Loved by our customers”
-
-
-
-★★★★★
-
-“5.0 / 5”
-
-“Based on customer feedback”
-
-
-
-Add an interactive feedback form:
-
-
-
-Name
-
-Email (optional)
-
-Rating
-
-Your feedback
-
-Optional photo upload
-
-
-
-Button:
-
-
-
-“Share Your Experience”
-
-
-
-Add subtle success animation after submission.
-
-
-
-==================================================
-
-PAGE 5 — CONTACT
-
-==================================================
-
-Create a warm contact page.
-
-Hero:
-
-“Let’s Create Something Special.”
-
-Text:
-
-“Have a question, want to place a custom order, or simply want to say hello? We’d love to hear from you.”
-
-Contact options:
-
-📱 WhatsApp
-
-📧 Email
-
-📸 Instagram
-
-Create a beautiful contact form:
-
-Name
-
-Email
-
-Phone / WhatsApp
-
-What are you looking for?
-
-Message
-
-Dropdown:
-
-Product Enquiry
-
-Custom Order
-
-Bulk Order
-
-Gift Recommendation
-
-General Question
-
-Other
-
-Button:
-
-“Send Message”
-
-Add a WhatsApp CTA:
-
-“Chat With Us on WhatsApp”
-
-Add a small FAQ section:
-
-“How do I place a custom order?”
-
-“How long does a custom order take?”
-
-“Can I request specific colours?”
-
-“Do you make personalised gifts?”
-
-“How can I enquire about a product?”
-
-==================================================
-
-FOOTER
-
-==================================================
-
-Create a consistent elegant footer across all pages.
-
-Logo:
-
-Shira’s Strokes
-
-Tagline:
-
-“Handmade with Love ♡”
-
-Navigation:
-
-Home
-
-Shop
-
-Our Story
-
-Reviews
-
-Contact
-
-Categories:
-
-Crochet
-
-Paintings
-
-Flowers
-
-Accessories
-
-Rakhis
-
-Custom Gifts
-
-Social:
-
-Instagram
-
-Facebook
-
-WhatsApp
-
-Footer:
-
-“Established in 2025”
-
-“© 2026 Shira’s Strokes. Crafted with love.”
-
-==================================================
-
-MOBILE EXPERIENCE
-
-==================================================
-
-Mobile design is extremely important.
-
-Optimize specifically for:
-
-360px
-
-375px
-
-390px
-
-430px
-
-Create:
-
-- Sticky mobile navbar
-
-- Animated hamburger menu
-
-- Large touch-friendly buttons
-
-- Responsive product grid
-
-- Horizontal category scrolling where appropriate
-
-- Proper image cropping
-
-- No horizontal overflow
-
-- Smooth page transitions
-
-
-
-Do NOT simply shrink the desktop layout.
-
-==================================================
-
-ACCESSIBILITY
-
-==================================================
-
-Ensure:
-
-- Proper semantic HTML
-
-- Good color contrast
-
-- Keyboard navigation
-
-- Visible focus states
-
-- Alt text for images
-
-- Accessible buttons
-
-- Accessible forms
-
-- Reduced motion support
-
-==================================================
-
-SEO
-
-==================================================
-
-Add appropriate:
-
-- Page titles
-
-- Meta descriptions
-
-- Open Graph metadata
-
-- Semantic headings
-
-- Image alt text
-
-Suggested homepage title:
-
-“Shira’s Strokes | Handmade With Love”
-
-Suggested description:
-
-“Discover beautiful handmade and customised creations by Shira’s Strokes, established in 2025. Handmade gifts, flowers, crafts, paintings, accessories and more.”
-
-==================================================
-
-IMPORTANT
-
-==================================================
-
-The final website must NOT feel like an AI-generated template.
-
-It should feel like a real boutique handmade brand.
-
-Prioritize:
-
-1. Beautiful visual storytelling
-
-2. Premium but approachable design
-
-3. Strong product presentation
-
-4. Emotional brand story
-
-5. Smooth animations
-
-6. Excellent mobile experience
-
-7. Clear navigation
-
-8. Easy customisation later
-
-
-
-Use realistic placeholder images and product data where actual assets are unavailable.
-
-
-
-Keep the code clean, modular, and easy to extend.
-
-
-
-The final experience should feel like:
-
-
-
-“Walking into a beautiful little handmade studio — warm, creative, personal, artistic and full of love.”
-
-This project was built with [Lovable](https://lovable.dev).
-
-## Build with Lovable
-
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/d8bdc2f5-231a-4327-b68a-64c76697bb71).
-
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
-
-## Development
-
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
-
-```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
+```bash
 npm run dev
 ```
+
+The frontend will run at:
+
+```text
+http://localhost:3000
+```
+
+The backend API will run at:
+
+```text
+http://localhost:5000
+```
+
+### Run Frontend Only
+
+```bash
+npm run dev:frontend
+```
+
+### Run Backend Only
+
+```bash
+npm run dev:backend
+```
+
+## 🗄️ Database
+
+The application uses **MongoDB** with **Mongoose** for data persistence.
+
+The backend manages application data such as:
+
+- Products
+- Reviews
+- Admin/authentication data
+
+### Seed Database
+
+The project includes a seed script:
+
+```bash
+npm run seed
+```
+
+Use this command when you need to populate the database with the project's initial data.
+
+## ☁️ Cloudinary Image Storage
+
+The application uses **Cloudinary** for cloud-based image storage.
+
+The admin dashboard provides Cloudinary integration information, including:
+
+- Cloudinary connection status
+- Storage currently used
+- Number of images/resources currently stored
+- Cloudinary usage
+- Current Cloudinary plan
+
+If Cloudinary is not configured, the application can use the available local upload fallback for supported upload functionality.
+
+## 🔐 Authentication
+
+The admin dashboard uses token-based authentication.
+
+The backend uses:
+
+- **JWT** for authentication
+- **bcryptjs** for password hashing
+- Protected API routes and middleware
+
+Authentication secrets should only be stored in environment variables.
+
+## 📦 Production Build
+
+Create a production build:
+
+```bash
+npm run build
+```
+
+Start the Next.js production server:
+
+```bash
+npm start
+```
+
+Start the Express backend:
+
+```bash
+npm run start:backend
+```
+
+## 📋 Available Scripts
+
+| Command | Description |
+|---|---|
+| `npm run dev` | Start frontend and backend together |
+| `npm run dev:frontend` | Start the Next.js development server |
+| `npm run dev:backend` | Start the Express backend |
+| `npm run build` | Create a production Next.js build |
+| `npm start` | Start the Next.js production server |
+| `npm run start:backend` | Start the Express backend |
+| `npm run seed` | Seed the database with initial data |
+
+## 🎨 Design & UI
+
+The website follows a warm, elegant, handmade aesthetic designed specifically for a creative artisan brand.
+
+The visual direction focuses on:
+
+- Warm ivory and cream tones
+- Soft blush and dusty rose accents
+- Lavender and sage tones
+- Elegant typography
+- Organic shapes
+- Subtle shadows
+- Artistic details
+- Generous whitespace
+- Smooth animations
+- Responsive layouts
+
+The goal is to provide a boutique handmade-studio experience rather than a generic e-commerce interface.
+
+## 📱 Responsive Design
+
+The application is optimized for different screen sizes, including:
+
+- Mobile devices
+- Small mobile screens
+- Tablets
+- Laptops
+- Desktop displays
+
+The interface is designed to prevent horizontal overflow and provide touch-friendly controls on mobile devices.
+
+## ♿ Accessibility
+
+The project follows common accessibility practices, including:
+
+- Semantic HTML
+- Keyboard-friendly navigation
+- Visible focus states
+- Accessible buttons and forms
+- Image alternative text
+- Appropriate color contrast
+- Skip-to-content navigation
+- Responsive and touch-friendly UI
+
+## 🔎 SEO
+
+The application includes Next.js metadata for:
+
+- Page titles
+- Meta descriptions
+- Open Graph information
+- Social sharing metadata
+- Website icons and favicon
+
+Example homepage title:
+
+```text
+Shira's Strokes | Handmade With Love
+```
+
+## 🌸 About Shira's Strokes
+
+**Shira's Strokes** is a handmade creative brand established in **2025**, focused on creating unique handmade and customised products.
+
+The brand offers creative products such as:
+
+- Crochet creations
+- Handmade paintings and artworks
+- Flowers and bouquets
+- Earrings and accessories
+- Rakhis
+- Handmade crafts
+- Customised gifts
+- Creative art and craft products
+
+> *Turning creativity into handmade happiness.*
+
+## 🚀 Deployment
+
+The frontend and backend can be deployed separately.
+
+### Frontend
+
+The Next.js frontend can be deployed to platforms that support Next.js, such as Vercel.
+
+Configure:
+
+```env
+NEXT_PUBLIC_API_URL=https://your-backend-url.com
+```
+
+### Backend
+
+The Express backend can be deployed to a Node.js-compatible hosting platform.
+
+Configure the backend environment variables:
+
+```env
+PORT=5000
+MONGODB_URI=your_mongodb_connection_string
+JWT_SECRET=your_jwt_secret
+CLOUDINARY_CLOUD_NAME=your_cloud_name
+CLOUDINARY_API_KEY=your_api_key
+CLOUDINARY_API_SECRET=your_api_secret
+```
+
+Make sure the backend CORS configuration allows requests from the deployed frontend domain.
+
+## 🔒 Security
+
+For production deployments:
+
+- Keep `.env` files out of version control
+- Use strong JWT secrets
+- Never expose Cloudinary API secrets in frontend code
+- Never expose MongoDB credentials publicly
+- Use HTTPS
+- Configure CORS for trusted frontend domains
+- Protect admin-only API routes
+- Validate incoming request data
+- Hash passwords before storing them
+
+## 📄 License
+
+This project is maintained for **Shira's Strokes**.
+
+© 2026 Shira's Strokes. All rights reserved.

@@ -25,34 +25,34 @@ export default function AdminDashboardPage() {
   const [loading, setLoading] = useState(true);
   const [cloudinaryUsage, setCloudinaryUsage] = useState<{
     storage: {
-      usedBytes: number;
-      usedGB: number;
-    };
-    credits: {
       used: number;
-      limit: number;
+      free: number;
+      total: number;
       percentage: number;
-      remaining: number;
     };
     resources: number;
-    plan: string | null;
-    lastUpdated: string | null;
+    raw?: {
+      plan?: string;
+      credits?: {
+        usage: number;
+        limit: number;
+        used_percent: number;
+      };
+    };
   } | null>(null);
 
   const fetchCloudinaryUsage = async () => {
     try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/cloudinary/usage`
-      );
-  
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/cloudinary/usage`);
+
       const data = await response.json();
-  
+
       if (!response.ok || !data.success) {
         throw new Error(data.message || "Failed to fetch Cloudinary usage");
       }
-  
+
       console.log("Cloudinary usage:", data);
-  
+
       setCloudinaryUsage(data);
     } catch (error) {
       console.error("Failed to fetch Cloudinary usage:", error);
@@ -273,93 +273,147 @@ export default function AdminDashboardPage() {
 
           {/* System Health / Storage Status */}
           <div className="rounded-3xl hairline bg-card p-6 paper">
-            <h3 className="font-display text-lg font-semibold text-ink mb-3">
+            <h3 className="font-display text-lg font-semibold text-ink mb-5">
               System & Integrations
             </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
-              <div className="rounded-2xl bg-secondary/50 p-3.5 flex items-center gap-3">
-                <Database className="h-5 w-5 text-primary" />
-                <div>
-                  <p className="font-medium text-ink">MongoDB Database</p>
-                  <p className="text-emerald-700">● Connected & Active</p>
+
+            <div className="divide-y divide-border/60">
+              {/* Database */}
+              <div className="flex items-center gap-4 py-4 first:pt-0">
+                <div className="flex h-9 w-9 items-center justify-center rounded-full bg-secondary/60 shrink-0">
+                  <Database className="h-4 w-4 text-primary" />
+                </div>
+                <div className="flex-1 min-w-0 flex items-center justify-between gap-3">
+                  <p className="text-sm font-medium text-ink">MongoDB Database</p>
+                  <span className="inline-flex items-center gap-1.5 text-[0.7rem] text-emerald-700">
+                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                    Connected
+                  </span>
                 </div>
               </div>
 
-              <div className="rounded-2xl bg-secondary/50 p-3.5 flex items-start gap-3">
-                <Cloud className="h-5 w-5 text-primary mt-0.5 shrink-0" />
+              {/* Image Storage */}
+              <div className="flex items-start gap-4 py-4">
+                <div className="flex h-9 w-9 items-center justify-center rounded-full bg-secondary/60 shrink-0 mt-0.5">
+                  <Cloud className="h-4 w-4 text-primary" />
+                </div>
 
-                <div className="min-w-0 flex-1">
-                  <div className="flex items-center justify-between gap-2">
-                    <p className="font-medium text-ink">Image Storage</p>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center justify-between gap-3">
+                    <p className="text-sm font-medium text-ink">Image Storage</p>
 
                     <span
-                      className={
+                      className={`inline-flex items-center gap-1.5 text-[0.7rem] ${
                         stats?.system.cloudinaryConfigured ? "text-emerald-700" : "text-amber-700"
-                      }
+                      }`}
                     >
-                      {stats?.system.cloudinaryConfigured ? "● Active" : "● Fallback"}
+                      <span
+                        className={`h-1.5 w-1.5 rounded-full ${
+                          stats?.system.cloudinaryConfigured ? "bg-emerald-500" : "bg-amber-500"
+                        }`}
+                      />
+                      {stats?.system.cloudinaryConfigured ? "Active" : "Fallback"}
                     </span>
                   </div>
 
                   {stats?.system.cloudinaryConfigured ? (
                     cloudinaryUsage ? (
-                      <div className="mt-2">
-                        {/* Storage */}
-                        <div className="flex items-center justify-between text-[0.7rem]">
-                          <span className="text-muted-foreground">
-                            {cloudinaryUsage.storage.usedGB.toFixed(2)} GB used
-                          </span>
+                      <div className="mt-3 space-y-3">
+                        {/* Storage & Images */}
+                        <div className="grid grid-cols-2 gap-2">
+                          <div className="rounded-lg bg-secondary/40 px-3 py-2">
+                            <p className="text-[0.65rem] text-muted-foreground">Storage Used</p>
 
-                          <span className="font-medium text-ink">
-                            {cloudinaryUsage.resources} resources
-                          </span>
+                            <p className="mt-0.5 text-sm font-medium text-ink">
+                              {(cloudinaryUsage.storage?.used ?? 0).toFixed(2)} GB
+                            </p>
+                          </div>
+
+                          <div className="rounded-lg bg-secondary/40 px-3 py-2">
+                            <p className="text-[0.65rem] text-muted-foreground">
+                              Current Images Stored
+                            </p>
+
+                            <p className="mt-0.5 text-sm font-medium text-ink">
+                              {cloudinaryUsage.resources ?? 0}
+                            </p>
+                          </div>
                         </div>
 
-                        {/* Credits progress */}
-                        <div className="mt-2 flex items-center justify-between text-[0.7rem]">
-                          <span className="text-muted-foreground">
-                            {cloudinaryUsage.credits.used.toFixed(2)} credits used
-                          </span>
+                        {/* Cloudinary Usage */}
+                        {cloudinaryUsage.raw?.credits && (
+                          <div>
+                            <div className="flex items-center justify-between text-[0.7rem]">
+                              <span className="text-muted-foreground">Cloudinary usage</span>
 
-                          <span className="font-medium text-ink">
-                            {cloudinaryUsage.credits.percentage.toFixed(0)}%
-                          </span>
-                        </div>
+                              <span className="font-medium text-ink">
+                                {(cloudinaryUsage.raw.credits.used_percent ?? 0).toFixed(1)}%
+                              </span>
+                            </div>
 
-                        <div className="mt-1.5 h-1.5 w-full overflow-hidden rounded-full bg-border">
-                          <div
-                            className="h-full rounded-full bg-primary transition-all duration-500"
-                            style={{
-                              width: `${Math.min(cloudinaryUsage.credits.percentage, 100)}%`,
-                            }}
-                          />
-                        </div>
+                            {/* Usage Progress */}
+                            <div className="mt-1.5 h-1.5 w-full overflow-hidden rounded-full bg-border/70">
+                              <div
+                                className="h-full rounded-full bg-primary/80 transition-all duration-500"
+                                style={{
+                                  width: `${Math.min(
+                                    cloudinaryUsage.raw.credits.used_percent ?? 0,
+                                    100,
+                                  )}%`,
+                                }}
+                              />
+                            </div>
 
-                        {/* Credit details */}
-                        <div className="mt-1.5 flex justify-between text-[0.65rem] text-muted-foreground">
-                          <span>
-                            {cloudinaryUsage.credits.remaining.toFixed(2)} credits remaining
-                          </span>
+                            {/* Usage Details */}
+                            <div className="mt-1.5 flex items-center justify-between text-[0.65rem] text-muted-foreground/80">
+                              <span>
+                                {(cloudinaryUsage.raw.credits.usage ?? 0).toFixed(2)} used
+                              </span>
 
-                          <span>{cloudinaryUsage.credits.limit.toFixed(2)} credits total</span>
-                        </div>
+                              <span>
+                                {Math.max(
+                                  (cloudinaryUsage.raw.credits.limit ?? 0) -
+                                    (cloudinaryUsage.raw.credits.usage ?? 0),
+                                  0,
+                                ).toFixed(2)}{" "}
+                                remaining
+                              </span>
+                            </div>
+                          </div>
+                        )}
+
+                        {/* Plan */}
+                        {cloudinaryUsage.raw?.plan && (
+                          <div className="flex items-center justify-between text-[0.65rem] text-muted-foreground/80">
+                            <span>Plan</span>
+
+                            <span className="font-medium text-ink">{cloudinaryUsage.raw.plan}</span>
+                          </div>
+                        )}
                       </div>
                     ) : (
-                      <p className="mt-1 text-muted-foreground">Loading storage...</p>
+                      <p className="mt-2 text-[0.7rem] text-muted-foreground">
+                        Loading storage information…
+                      </p>
                     )
                   ) : (
-                    <p className="text-amber-700">Local Uploads Fallback Active</p>
+                    <p className="mt-2 text-[0.7rem] text-amber-700">
+                      Local uploads fallback active
+                    </p>
                   )}
                 </div>
               </div>
 
-              <div className="rounded-2xl bg-secondary/50 p-3.5 flex items-center gap-3">
-                <Sparkles className="h-5 w-5 text-primary" />
-                <div>
-                  <p className="font-medium text-ink">Environment</p>
-                  <p className="text-muted-foreground capitalize">
+              {/* Environment */}
+              <div className="flex items-center gap-4 py-4 last:pb-0">
+                <div className="flex h-9 w-9 items-center justify-center rounded-full bg-secondary/60 shrink-0">
+                  <Sparkles className="h-4 w-4 text-primary" />
+                </div>
+                <div className="flex-1 min-w-0 flex items-center justify-between gap-3">
+                  <p className="text-sm font-medium text-ink">Environment</p>
+                  <span className="text-[0.7rem] text-muted-foreground capitalize">
                     {stats?.system.nodeEnv || "development"}
-                  </p>
+                  </span>
                 </div>
               </div>
             </div>
